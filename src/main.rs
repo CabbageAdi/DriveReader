@@ -7,8 +7,9 @@ use std::time::Instant;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
+    println!("Disk Reader - Made with <3 by Exun Clan");
     if (args.len() < 2) {
-        println!("Disk Reader - Made with <3 by Exun");
+        println!("Not enough arguments specified: see https://github.com/IDoEverything/DriveReader");
         return;
     }
 
@@ -37,7 +38,7 @@ fn main() {
             }
         };
 
-        println!("Disk {}", &args[1]);
+        println!("Disk {}", drive_path);
 
         for (i, p) in gpt.iter() {
             if p.is_used() {
@@ -59,10 +60,12 @@ fn main() {
                 println!("Partition #{}: size = {} {}", i, size.trunc(), unit);
             }
             else {
-                println!("Partition #{}: Unhealthy", i);
+                let size = p.size().unwrap();
+                if (size != 1) {
+                    println!("Partition #{}: Unhealthy partition", i)
+                }
             }
         }
-
     }
     else if (command == "b") {
         if (args.len() < 3) {
