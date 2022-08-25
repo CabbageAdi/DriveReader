@@ -99,13 +99,15 @@ fn main() {
             }
 
             let num_args = args.len() - 3;
-            let i = 0;
+            let mut i = 0;
 
             //run custom benchmarks
             while i < num_args / 2 {
                 let data_mb = &args[3 + i * 2].parse::<u128>().unwrap();
                 let packet_count = &args[3 + i * 2 + 1].parse::<u128>().unwrap();
                 write_repeated(&file_path, *data_mb, *packet_count);
+
+                i += 1;
             }
         }
         else {
